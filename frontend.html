@@ -1,0 +1,126 @@
+<!-- Module code: CS5003 -->
+<!-- Module: Masters Programming Projects -->
+<!-- Creating an Emojitar Generator -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="frontend.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="frontend.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Emojitar Generator</title>
+  </head>
+  <body>
+    <h1>Emojitar Generator</h1>
+    <p>Create Your Emojitar!</p>
+
+    <!-- Tab links -->
+    <div class="tab">
+      <button class="tablinks" onclick="emojitarDisplay(event, 'Maker')">
+        Maker
+      </button>
+      <button class="tablinks" onclick="emojitarDisplay(event, 'Browser')">
+        Browser
+      </button>
+      <button class="tablinks" onclick="emojitarDisplay(event, 'Component')">
+        Component
+      </button>
+    </div>
+
+    <!-- Tab content -->
+    <div id="Maker" class="tabcontent">
+      <div class="preview-container">
+        <h3>Maker</h3>
+        <p>
+          This page allows you to make your very own emojitar, by choosing
+          between the various emojitar components available in the components
+          display.
+        </p>
+        <div id="preview-box"></div>
+        <!-- <label for="colour-picker">Colour Picker:</label>
+        <input type="color" id="color-picker" /> -->
+
+        <label for="emojitar-id">Unique Emojitar ID:</label>
+        <input type="text" id="emojitar-id" name="emojitar-id" /><br />
+        <label for="emojitar-description">Emojitar Description:</label>
+        <input
+          type="text"
+          id="emojitar-description"
+          name="emojitar-description"
+        /><br />
+        <button id="save-emojitar" onclick="saveEmojitar()">
+          Save Emojitar
+        </button>
+
+        <div id="authenticationContainer">
+          <h2>Register as a user</h2>
+          <input
+            type="text"
+            id="registerUsername"
+            name="registerUsername"
+            placeholder="Username"
+          /><br />
+          <input
+            type="password"
+            id="registerPassword"
+            name="registerPassword"
+            placeholder="Password"
+          /><br />
+          <button onclick="register()">Register</button>
+
+          <h2>Log in as existing user</h2>
+          <input
+            type="text"
+            id="loginUsername"
+            name="loginUsername"
+            placeholder="Username"
+          /><br />
+          <input
+            type="password"
+            id="loginPassword"
+            name="loginPassword"
+            placeholder="Password"
+          /><br />
+          <button onclick="login()">Login</button>
+        </div>
+      </div>
+
+      <div class="component-containers">
+        <div class="component-container" id="face-container"></div>
+        <div class="component-container" id="mouth-container"></div>
+        <div class="component-container" id="eyes-container"></div>
+        <div class="component-container" id="hair-container"></div>
+      </div>
+      <div id="emojitars"></div>
+    </div>
+
+    <div id="Browser" class="tabcontent">
+      <h3>Browser</h3>
+      <p>
+        This page allows you to browse through previously created emojitars,
+        comment on them and rate them. You can also search for emojitars created
+        by a specific user.
+      </p>
+      <label for="searh-username"
+        >Search for Creator Name (Leave blank to see all emojitars):</label
+      >
+      <input
+        type="text"
+        id="search-creator"
+        name="search-creator"
+        placeholder="Enter Creator Name Here"
+      /><br />
+      <div id="emojitars-container"></div>
+      <button onclick="fetchEmojitars()">See Saved Emojitars</button>
+    </div>
+
+    <div id="Component" class="tabcontent">
+      <h3>Component</h3>
+      <p>
+        This page allows you to upload your own components for the emojitar
+        maker.
+      </p>
+    </div>
+  </body>
+</html>

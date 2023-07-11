@@ -1,0 +1,162 @@
+/*
+Module code: CS5003
+Module: Masters Programming Projects
+Creating an Emojitar Generator
+*/
+
+/* Style the displayed emojitar components */
+#Maker {
+  display: flex;
+}
+
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+}
+
+.component-containers {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.component-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#emojitar-type {
+  float: left;
+  margin-right: 20px;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+/* Style emojitar preview box */
+#preview-box {
+  height: 250px;
+  width: 250px;
+  background-color: white;
+  border: 1px solid black;
+  position: relative;
+}
+
+/* Style emojitar images */
+#emojitarP {
+  border: 2px solid black;
+  width: 50px;
+  height: 50px;
+}
+
+/* Style emojitar input fields */
+label,
+input {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Style the individual emojitar containers of the larger container for all emojitars */
+.emojitar-container {
+  display: inline-block;
+  width: 100px;
+  position: relative;
+  padding: 10px;
+}
+
+/* Style each emojitar component saved to the server before display */
+.emojitar-component {
+  width: 50px;
+  height: 50px;
+}
+
+/* Style the emojitar image composed of the emojitar components saved to the server before display */
+.emojitar-image {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+}
+
+/* Style rating display to show stars as coloured when marked */
+/* Styling based on https://codepen.io/hesguru/pen/BaybqXv */
+.rating {
+  float: right;
+  height: 30px;
+  margin-bottom: 5px;
+  width: 150px;
+  margin-left: 30px;
+}
+
+.rating:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+}
+
+.rating:not(:checked) > label {
+  float: right;
+  width: 1.5em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 100%;
+  color: #ccc;
+}
+
+.rating:not(:checked) > label:before {
+  content: "★ ";
+}
+
+.rating > input:checked ~ label {
+  color: #ffc700;
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: #deb217;
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
