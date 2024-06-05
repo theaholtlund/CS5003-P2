@@ -2,9 +2,6 @@
 // Module: Masters Programming Projects
 // Creating an Emojitar Generator
 
-// Name of the file is logged to the console, to make sure it is correctly linked
-console.log("frontend.js");
-
 // Group components by their type, and get the emojitar image and description
 window.onload = async function getEmojitars() {
   const emojitars = await fetch("http://localhost:23843/emojitarcomponents");
@@ -73,7 +70,7 @@ window.onload = async function getEmojitars() {
     });
   });
 
-  // Make the "Save Emojitar" button display now that all components are loaded
+  // Create button display now that all components are loaded
   const saveEmojitar = document.getElementById("save-emojitar");
   saveEmojitar.style.display = "block";
 };
@@ -95,7 +92,7 @@ function emojitarDisplay(evt, tabName) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
 
-  // Show the current tab, and add an "active" class to the button that opened the tab
+  // Show the current tab, and add "active" class to button that opened the tab
   document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " active";
 }
@@ -116,13 +113,13 @@ const selectedFeatures = {
   mouth: null,
 };
 
-// Add the chosen component image to the emojitar preview box and update the selectedComponents object
+// Add chosen component to emojitar preview box and update object
 function selectFeature(emojitar) {
   console.log(emojitar);
   let previewBox = document.getElementById("preview-box");
 
-  // Check if an image with the same type as the selected component already exists in the preview box
-  // If one exists it is replaced, as a user can only choose one component of each type
+  // Check if an image of selected component already exists in preview box
+  // If so, the exists image is replaced, as a user can only choose one component of each type
   const existingImage = previewBox.querySelector(
     `img[data-component="${emojitar.type}"]`
   );
@@ -133,8 +130,7 @@ function selectFeature(emojitar) {
   // Add functionality to render components in the right chronological order
   const selectedFeature = createComponentImgElement(emojitar);
 
-  // Add and store the users choice for a given emojitar type
-  // Update the preview box with the the image chosen by the user, and style it to fit
+  // Update the preview box with the the image chosen by the user, and style to fit
   selectedComponents[emojitar.type] = emojitar;
   selectedFeatures[emojitar.type] = selectedFeature;
   // Add the colour from the updateComponentColour function
@@ -262,7 +258,7 @@ async function saveEmojitar() {
     date: creationDate,
   };
 
-  // Sending the data to the server so that the emojitar can be saved
+  // Send the data to the server so that the emojitar can be saved
   const response = await fetch("http://localhost:23843/emojitar", {
     method: "POST",
     body: JSON.stringify(emojitarData),
@@ -272,7 +268,7 @@ async function saveEmojitar() {
     },
   });
 
-  // Do not leg users save an emojitar if they are not logged in
+  // Do not let users save an emojitar if they are not logged in
   if (response.status === 401) {
     alert(
       "You are not authorised to do this, because you are not logged in. Please log in first."
@@ -285,9 +281,9 @@ async function saveEmojitar() {
   alert(data.message);
 }
 
-// Commenting functionality for users to comment and rate saved emojitars
+// Comment functionality for users to comment and rate saved emojitars
 async function saveComment(emojitar, comment, selectedRating) {
-  // Creating a variable for when the comment was made, to be saved backend but not displayed
+  // Create a variable for when the comment was made, to be saved backend but not displayed
   var commentDate = new Date();
 
   // Define the data to be sent to the backend
@@ -299,7 +295,7 @@ async function saveComment(emojitar, comment, selectedRating) {
     date: commentDate,
   };
 
-  // Sending the data to the server so that the comment can be saved
+  // Send the data to the server so that the comment can be saved
   const response = await fetch("http://localhost:23843/comment", {
     method: "POST",
     body: JSON.stringify(commentData),
@@ -318,7 +314,7 @@ async function saveComment(emojitar, comment, selectedRating) {
   const data = await response.json();
   console.log(data);
 
-  // Alert the appropriate message defined based on the if statements defined in the backend
+  // Alert message based on statements defined in the backend
   alert(data.message);
 }
 
@@ -328,7 +324,7 @@ function showEmojitarComments(emojitar) {
   let commentContainer = document.getElementById("Comments");
   commentContainer.innerHTML = "";
 
-  // Defining an array to store information on the rating selected
+  // Define an array to store information on the rating selected
   var selectedRating = [];
 
   // Create input field for user to add a comment
@@ -442,7 +438,7 @@ async function fetchEmojitars() {
     description.innerHTML = `Description: ${emojitar.description}`;
     emojitarText.appendChild(description);
 
-    // Button to allow other users to comment on saved emojitars
+    // Allow other users to comment on saved emojitars
     const commentButton = document.createElement("button");
     commentButton.innerHTML = "Leave a comment";
     commentButton.onclick = function () {
@@ -476,7 +472,7 @@ async function fetchEmojitars() {
     emojitarContainer.appendChild(emojitarText);
     emojitarContainer.appendChild(emojitarComments);
 
-    // Add the container for every individual emojitar to the larger container for all emojitars
+    // Add container for every individual emojitar to the larger container for all emojitars
     emojitarsContainer.appendChild(emojitarContainer);
   }
 
@@ -484,7 +480,7 @@ async function fetchEmojitars() {
   async function deleteEmojitar(emojitar) {
     const emojitarId = emojitar.id;
 
-    // Sending the data to the server so that the emojitar can be saved
+    // Send the data to the server so that the emojitar can be saved
     const response = await fetch(
       `http://localhost:23843/emojitar/${emojitarId}`,
       {
@@ -497,14 +493,13 @@ async function fetchEmojitars() {
     );
 
     // Only users who are logged in can delete emojitars
-    // Also have to be their own emojitar, but this logic is defined in the backend
     if (response.status === 401) {
       alert(
         "You are not authorised to do this, because you are not logged in. Please log in first."
       );
     }
 
-    // Alert the appropriate message defined based on the if statements defined in the backend
+    // Alert message based on the if statements defined in the backend
     const data = await response.json();
     alert(data.message);
   }

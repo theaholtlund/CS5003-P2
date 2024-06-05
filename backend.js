@@ -2,23 +2,22 @@
 // Module: Masters Programming Projects
 // Creating an Emojitar Generator
 
-// Import Node.js and Express modules needed
-// Cors is imported to allow requests to different domain
+// Import required modules, cors to allow requests to different domain
 var express = require("express");
 var cors = require("cors");
 var expressBasicAuth = require("express-basic-auth");
 var app = express();
 const { emojitars } = require("./emojitar");
 
-// Set up middleware functions in Express to handle incoming requests, as shown in class
+// Set up middleware functions to handle incoming requests
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
-// Setting up the API port
+// Set up the API port
 const API_PORT = 23843;
 
-// Adding some predefined users that can log in to the system
+// Add some predefined users that can log in to the system
 const users = {
   admin: "supersecret",
 };
@@ -27,25 +26,24 @@ const users = {
 let createdEmojitars = [];
 
 // List all existing valid username and password pairs
-// Based on material covered in class for Express autentication
 const authorise = expressBasicAuth({
   users: users,
   unauthorizedResponse: (req) =>
     req.auth ? "Credentials  rejected" : "No credentials provided",
 });
 
-// ======== Frontend endpoints ========
-// Linked homepage to frontend.html
+// ======== FRONTEND ENDPOINTS ========
+// Link homepage to frontend.html
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/frontend.html");
 });
 
-// Added endpoint to link to frontend.js from server
+// Add endpoint to link to frontend.js from server
 app.get("/frontend.js", function (req, res) {
   res.sendFile(__dirname + "/frontend.js");
 });
 
-// Added endpoint to link to frontend.css from server
+// Add endpoint to link to frontend.css from server
 app.get("/frontend.css", function (req, res) {
   res.sendFile(__dirname + "/frontend.css");
 });
@@ -53,7 +51,7 @@ app.get("/frontend.css", function (req, res) {
 // Display emojitar images through static middleware
 app.use(express.static("./graphics"));
 
-// ======== API endpoints for login and signup ========
+// ======== API ENDPOINTS FOR AUTHENTICATION ========
 // Endpoint for users to register and add them to server
 app.post("/register", (req, res) => {
   // Check if user already exists
@@ -89,14 +87,13 @@ app.post("/login", function (req, res) {
   }
 });
 
-// ======== API endpoints for components ========
+// ======== API ENDPOINTS FOR EMOJITARS ========
 // Endpoint to get the emojitar components
 app.get("/emojitarcomponents", (req, res) => {
   res.send(emojitars);
 });
 
-// ======== API endpoints for emojitars ========
-// Allow users to see all created emojitars by adding endpoint to server
+// Endpoint to see all created emojitars
 app.get("/emojitars", (req, res) => {
   res.send(createdEmojitars);
 });
@@ -160,7 +157,7 @@ app.delete("/emojitar/:id", authorise, function (req, res) {
   });
 });
 
-// ======== API endpoints for comments ========
+// ======== API ENDPOINTS FOR COMMENTS ========
 // Endpoint to receive comment data from frontend
 app.post("/comment", authorise, (req, res) => {
   const commentData = req.body;
@@ -202,7 +199,7 @@ app.post("/comment", authorise, (req, res) => {
   });
 });
 
-// Instruct server to listen on the port, and console log a message, to know that it is doing something
+// Instruct server to listen on the port
 app.listen(API_PORT, () => {
   console.log(`Listening on localhost: ${API_PORT}`);
 });
